@@ -19,13 +19,15 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: crear tablas por pais
+      - name: descargar data
         run: |
-          grep -i Germany companies-all.csv  > companies_germany.csv
-          grep -i Kingdom companies-all.csv  > companies_united_kingdom.csv
-          grep -i France companies-all.csv  > companies_france.csv
+          curl -sL "https://companiesmarketcap.com/electric-vehicles/largest-ev-companies-by-market-cap/?download=csv" -o data.csv
+          if [ ! -s data.csv ]; then
+            echo "Downloaded CSV file is empty"
+            exit 1
+          fi
 
-      - name: Commit results
+      - name: commit output
         if: always()
         run: |
           git config --local user.email "action@github.com"
@@ -35,6 +37,25 @@ jobs:
           git stash list | grep "stash@{0}" && git stash apply
           git add .
           git diff --cached --exit-code || git commit -m "tabla actualizada" --allow-empty
+          git push --force-with-lease origin HEAD:main
+          
+      - name: crear tablas por pais
+        run: |
+          grep -i Germany companies-all.csv  > companies_germany.csv
+          grep -i Kingdom companies-all.csv  > companies_united_kingdom.csv
+          grep -i France companies-all.csv  > companies_france.csv
+
+      - name: commit output
+        if: always()
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git diff --quiet || git stash
+          git pull --rebase origin main
+          git stash list | grep "stash@{0}" && git stash apply
+          git add .
+          git diff --cached --exit-code || git commit -m "tabla actualizada" --allow-empty
+          git push --force-with-lease origin HEAD:main
  
   viendo_eu: # nombre del job
     needs: analizando_datos # job(s) de los que depende
