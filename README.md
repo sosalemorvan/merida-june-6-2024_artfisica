@@ -2,9 +2,6 @@
 
 esto es un reame file.
 
-## sub
-
-----
-
-* f
-* g
+## Datos para el ejercicio
+Se esta tomando los datos de las compañioas de vehiculos electricos
+https://companiesmarketcap.com/electric-vehicles/largest-ev-companies-by-market-cap/
