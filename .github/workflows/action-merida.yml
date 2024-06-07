@@ -21,8 +21,8 @@ jobs:
 
       - name: descargar data
         run: |
-          curl -sL "https://companiesmarketcap.com/electric-vehicles/largest-ev-companies-by-market-cap/?download=csv" -o data.csv
-          if [ ! -s data.csv ]; then
+          curl -sL "https://companiesmarketcap.com/electric-vehicles/largest-ev-companies-by-market-cap/?download=csv" -o companies-all.csv
+          if [ ! -s companies-all.csv ]; then
             echo "Downloaded CSV file is empty"
             exit 1
           fi
