@@ -36,35 +36,30 @@ jobs:
           git stash list | grep "stash@{0}" && git stash apply
           git add .
           git diff --cached --exit-code || git commit -m "tabla actualizada" --allow-empty
-          git push --force-with-lease origin HEAD:main
-
+ 
   viendo_eu: # nombre del job
-    needs: analizando_datos # Job(s) de los que depende
-    runs-on: macos-12 #Sistema operativo
+    needs: analizando_datos # job(s) de los que depende
+    runs-on: macos-12 # sistema operativo
     steps:
-      - name: Checkout code 
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: imprimir tabla bruta y neta
         run: |
-          echo "tabla desde empresas francesas"
+          echo "tabla desde Empresas Francesas"
           cat companies_france.csv
           echo
-          echo "Tabla desde empresas alemanas"
+          echo "tabla desde Empresas Germanas"
           cat companies_germany.csv
-          echo
-          echo "done, ciao"
 
   viendo_uk: # nombre del job
-    needs: analizando_datos # Job(s) de los que depende
-    runs-on: ubuntu_latest #Sistema operativo
+    needs: analizando_datos # job(s) de los que depende
+    runs-on: ubuntu-latest # sistema operativo
     steps:
-      - name: Checkout code 
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: imprimir tabla bruta y neta
         run: |
-          echo "Tabla desde empresas inglesas"
+          echo "tabla desde Empreses Inglesas"
           cat companies_united_kingdom.csv
-          echo
-          echo "done, ciao"
