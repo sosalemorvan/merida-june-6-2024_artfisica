@@ -1,5 +1,4 @@
 name: filtro por paises
-
 on:
   schedule:
     - cron: '00 0 * * *' # Runs every day at 00:00 UTC
